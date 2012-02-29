@@ -1,3 +1,7 @@
+% Pandoc Droplets and Services
+% David Sanson
+% 
+
 These are some simple-minded Automator wrappers around shell script wrappers
 around [pandoc][], aimed at making it easy to make simple use of pandoc
 in OS X.
@@ -19,27 +23,37 @@ double-click and follow the instructions, or just copy them to
 Requirements
 ============
 
-To use these, you need to install pandoc, version 1.9 or later. If you
-use the OS X installer, pandoc will be installed to `/usr/local/bin`; if
-you install from source using cabal, pandoc will likely be installed in
+To use these, you need to install pandoc, version 1.9 or later (earlier
+versions of pandoc have different command line options). If you use the
+OS X installer, pandoc will be installed to `/usr/local/bin`; if you
+install from source using cabal, pandoc will likely be installed in
 `~/.cabal/bin`. The scripts look in both places, and give priority to
-`~/.cabal/bin`. 
+`~/.cabal/bin`. If your copy of pandoc is installed somewhere else,
+you'll either need to modify the embedded scripts or put a symbolic link
+to pandoc in `/usr/local/bin`,
+
+~~~
+$ ln -s /path/to/pandoc /usr/local/bin/pandoc
+~~~
+
+If you don't know where your copy of pandoc is installed, try
+
+~~~
+$ which pandoc
+~~~
 
 Pandoc depends on LaTeX to convert to PDF. If you don't have LaTeX
 installed, I recommend installing [BasicTeX][], which is only 69 MB. The
 scripts assume that xetex is in `/usr/texbin`, which is where the
 BasicTeX installer puts it.
 
-If you have an earlier version of pandoc, or if your version of pandoc
-or your Tex executables are in some other place, you'll need to modify
-the embedded scripts.
 
 Input Formats
 =============
 
 The scripts should work with any of the input formats pandoc supports,
 but note that pandoc's support for some input formats is less robust
-than others; the best support is for markdown.
+than others. Support for markdown is the most polished and robust.
 
 The scripts pass the input filename to pandoc, and pandoc tries to guess
 the format from the extension. Files with non-standard extensions will
