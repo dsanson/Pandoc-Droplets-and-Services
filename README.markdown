@@ -5,30 +5,34 @@ in OS X.
 Drag and Drop Applets
 =====================
 
-`pandoc2docx.app` and `pandoc2pdf.app` are drag-and-drop applets. Put
+The applications in the Applets folder are drag-and-drop applets. Put
 them in the Dock or on your desktop. Drag a file (or several files) onto
 them to convert. You can use this README as a test.
 
 System Services
 ===============
 
-`Convert to DOCX using Pandoc.workflow` and
-`Convert to PDF using Pandoc.workflow` are Services. To install,
+The .workflow files in the Services folder are services. To install,
 double-click and follow the instructions, or just copy them to
 `~/Library/Services/`.
 
 Requirements
 ============
 
-To use these, you need to install pandoc. If you use the OS X installer,
-pandoc will be installed to `/usr/local/bin`; if you install from source
-using cabal, pandoc will likely be installed in `~/.cabal/bin`. The
-scripts look in both places, and give priority to `~/.cabal/bin`.
+To use these, you need to install pandoc, version 1.9 or later. If you
+use the OS X installer, pandoc will be installed to `/usr/local/bin`; if
+you install from source using cabal, pandoc will likely be installed in
+`~/.cabal/bin`. The scripts look in both places, and give priority to
+`~/.cabal/bin`. 
 
 Pandoc depends on LaTeX to convert to PDF. If you don't have LaTeX
 installed, I recommend installing [BasicTeX][], which is only 69 MB. The
 scripts assume that xetex is in `/usr/texbin`, which is where the
 BasicTeX installer puts it.
+
+If you have an earlier version of pandoc, or if your version of pandoc
+or your Tex executables are in some other place, you'll need to modify
+the embedded scripts.
 
 Input Formats
 =============
@@ -47,7 +51,7 @@ Customization
 Open the applets or the workflow files in Automator to customize them.
 The embedded scripts are simple. Making additional applets or services
 for other output formats, or for some specific set of options, is
-trivial. 
+trivial.
 
 Here is a commented example of the script embedded in `pandoc2pdf.app`:
 
