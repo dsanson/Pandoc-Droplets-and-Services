@@ -4,7 +4,7 @@ These are some simple Automator wrappers around shell script wrappers
 around [pandoc][]. Pandoc is a powerful command-line tool for converting
 between different document formats. These wrappers don't expose the full
 power of pandoc, but they allow for easy drag-and-drop conversion from
-markdown and other supported formats to pdf, odt, docx, and dzslides
+supported formats to pdf, odt, docx, dzslides, and (extended) markdown
 formats.
 
 Drag and Drop Applets
@@ -56,8 +56,8 @@ but note that pandoc's support for some input formats is less robust
 than others. 
 
 The scripts make no attempt to determine the input filetype. They pass
-the input filename to pandoc, and pandoc tries to guess the format from
-the extension. If pandoc cannot tell what the filetype is based on the
+the input filename to pandoc, and pandoc tries to infer the format from
+the filename extension. If pandoc cannot infer the filetype from the
 extension, it treats it as markdown.
 
 Customization
