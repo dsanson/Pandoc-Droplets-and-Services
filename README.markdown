@@ -45,20 +45,57 @@ to pandoc in `/usr/local/bin`,
 Pandoc depends on LaTeX to convert to PDF, so if you want to convert to
 PDF, you will need a working LaTeX installation. If you don't have LaTeX
 installed, I recommend installing [BasicTeX][], which is only 69 MB. The
-scripts assume that your LaTeX executables are in `/usr/texbin`,
-which is where BasicTeX and MacTeX put them.
+scripts assume that your LaTeX executables are in `/usr/texbin`, which
+is where BasicTeX and MacTeX put them.
 
 Input Formats
 =============
 
 The scripts should work with any of the input formats pandoc supports,
 but note that pandoc's support for some input formats is less robust
-than others. 
+than others.
 
 The scripts make no attempt to determine the input filetype. They pass
 the input filename to pandoc, and pandoc tries to infer the format from
 the filename extension. If pandoc cannot infer the filetype from the
 extension, it treats it as markdown.
+
+Conversion *To* Markdown
+========================
+
+`pandoc2markdown.app` and the `Convert to Pandoc using Markdown` Service
+are both wrappers around my [`any2pandoc.sh`][] script. This script will
+do its best to convert whatever you throw at it.
+
+doc, docx, webarchive, rtf, rtfd, and odt files
+-----------------------------------------------
+
+These are first converted to html, using OS X's built-in `textutil`
+command, and then converted to markdown using pandoc.
+
+This usually works okay. Things like footnotes will *not* be preserved.
+
+pdf
+---
+
+If you have [`pdftohtml`][] installed (I install it using [homebrew][]),
+that will be used to convert PDF files to html, which is then converted
+to markdown using pandoc.
+
+This sometimes works okay, and sometimes works not at all.
+
+tex
+---
+
+Files with the extension `.tex` are treated as latex files, and
+converted by pandoc to markdown.
+
+everything else
+---------------
+
+Everything else is passed to pandoc as is, and pandoc tries to infer the
+format from the filename extension. This works well for the input
+formats pandoc supports. Other formats will be treated as markdown.
 
 Customization
 =============
@@ -83,3 +120,6 @@ done
   [pandoc]: http://johnmacfarlane.net/pandoc/
   [Quicksilver]: http://qsapp.com
   [BasicTeX]: http://www.tug.org/mactex/morepackages.html
+  [`any2pandoc.sh`]: https://gist.github.com/1181510
+  [`pdftohtml`]: http://pdftohtml.sourceforge.net/
+  [homebrew]: http://mxcl.github.com/homebrew/
