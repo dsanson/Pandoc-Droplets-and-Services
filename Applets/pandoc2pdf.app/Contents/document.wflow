@@ -59,7 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>PATH=$HOME/.cabal/bin:/usr/local/bin:/usr/texbin:$PATH
+					<string>PATH=$HOME/.cabal/bin:/usr/local/bin:/Library/TeX/texbin:/usr/texbin:$PATH
 
 for file in "$@"
 do
