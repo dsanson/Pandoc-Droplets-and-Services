@@ -63,6 +63,7 @@
 
 for file in "$@"
 do
+    cd "${file%/*}"
     output=${file%%.*}.odt
     pandoc "$file" -o "$output"
 done

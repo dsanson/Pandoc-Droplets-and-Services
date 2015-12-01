@@ -86,6 +86,7 @@ fi
 
 for file in "$@"
 do
+    cd "${file%/*}"
     base="${file%%.*}"
     ext="${file#*.}"
 	case $ext in

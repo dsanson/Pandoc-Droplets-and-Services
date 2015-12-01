@@ -63,6 +63,7 @@
 
 for file in "$@"
 do
+    cd "${file%/*}"
     output=${file%%.*}.pdf
     pandoc "$file" -o "$output" --latex-engine xelatex
 done

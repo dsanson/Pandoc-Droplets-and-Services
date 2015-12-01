@@ -63,6 +63,7 @@
 
 for file in "$@"
 do
+    cd "${file%/*}"
     output=${file%%.*}-slidy.html
     pandoc -t slidy --self-contained -s "$file" -o "$output"
 done

@@ -63,6 +63,7 @@
 
 for file in "$@"
 do
+    cd "${file%/*}"
     output=${file%%.*}-dzslides.html
     pandoc -t dzslides --self-contained "$file" -o "$output"
 done
