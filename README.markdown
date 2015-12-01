@@ -42,16 +42,36 @@ Requirements
 Pandoc
 ------
 
-You'll need to [install pandoc][], version 1.9 or later (earlier
-The scripts for converting to PDF assume that your LaTeX executables are
-in `/usr/texbin`, which is where BasicTeX and MacTeX put them. But if you have installed LaTeX somewhere else, you will need to modify the scripts or create appropriate symbolic links.
-versions of pandoc have different command line options).
+You'll need [pandoc][], version 1.9 or later (earlier versions of pandoc have
+different command line options).
 
 LaTeX
 -----
 
 Pandoc depends on LaTeX to convert to PDF. If you don't have LaTeX
 installed, I recommend installing [BasicTeX][], which is only 69 MB.
+
+pdftohtml
+---------
+
+Convert PDF files to markdown using the pandoc2markdown.app Applet or the
+'Convert to Markdown using Pandoc' workflow depends on [pdftohtml], which can
+be installed via [homebrew].
+
+Paths
+-----
+
+Shell scripts that are run via Automator don't know about all the fancy
+additions you've made to your `$PATH` in your `.bashrc`. So each script begins
+by adding directories to `$PATH` that might contain pandoc and your LaTeX
+executables, e.g.,
+
+```{.sh}
+PATH=$HOME/.cabal/bin:/usr/local/bin:/Library/TeX/texbin:/usr/texbin
+```
+
+If you have `pandoc` or `latex` installed somewhere else, you will need to add
+the appropriate path to each script.
 
 Input Formats
 =============
@@ -63,18 +83,28 @@ markdown][].
 
 The scripts make no attempt to determine the input filetype. They pass
 the input filename to pandoc, and pandoc tries to infer the format from
-the cd "${file%/*}"
+the extension.
+
+Hacking Away
+============
+
+Open an Applet or Service with Automator. Edit the embedded script to your
+liking. Here is what a typical script looks like:
+
+```{.sh}
+PATH=$HOME/.cabal/bin:/usr/local/bin:/Library/TeX/texbin:/usr/texbin:$PATH
+
+for file in "$@"
+do
+    cd "${file%/*}"
     output=${file%%.*}.pdf
     pandoc "$file" -o "$output" --latex-engine xelatex
 done
-~~~~
+```
 
   [pandoc]: http://johnmacfarlane.net/pandoc/
   [Services for the OS X Services Menu]: https://www.macworld.com/article/1163996/how_to_use_services_in_mac_os_x.html
-  [install pandoc]: http://johnmacfarlane.net/pandoc/installing.html
   [BasicTeX]: http://www.tug.org/mactex/morepackages.html
   [pandoc's extended markdown]: http://johnmacfarlane.net/pandoc/README.html#pandocs-markdown
-  [`any2pandoc.sh`]: https://gist.github.com/1181510
   [`pdftohtml`]: http://pdftohtml.sourceforge.net/
   [homebrew]: http://mxcl.github.com/homebrew/
-  [modify the embedded scripts]: #customization
